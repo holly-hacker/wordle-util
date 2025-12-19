@@ -1,3 +1,7 @@
+#![allow(clippy::module_inception)]
+
+mod components;
+
 use leptos::prelude::*;
 use log::{Level, info};
 
@@ -6,5 +10,5 @@ fn main() {
     console_error_panic_hook::set_once();
 
     info!("Hello, world!");
-    mount_to_body(|| view! { <p>"Hello, world!"</p> })
+    mount_to_body(components::App)
 }

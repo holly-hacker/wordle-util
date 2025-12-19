@@ -1,8 +1,96 @@
-@import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Roboto+Slab:wght@100..900&display=swap");
 
 html {
-    font-family: "Libre Franklin", sans-serif;
+    font-family: "Roboto Slab", serif;
     font-optical-sizing: auto;
-    font-weight: normal;
-    font-style: normal;
+}
+
+.container {
+    width: 600px;
+    margin: auto;
+}
+
+.introduction p {
+    margin: 0.5rem auto;
+}
+
+.board {
+    font-family: "Libre Franklin", sans-serif;
+
+    display: grid;
+    grid-gap: 5px;
+    grid-template-rows: repeat(6, 1fr);
+    justify-items: center;
+
+    margin: 75px auto;
+}
+
+.board .row {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.board .tile {
+    width: 3rem;
+    height: 3rem;
+
+    // center text
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    & > span {
+        font-size: 2rem;
+        line-height: 1;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    // hack used by NYT to force square container
+    &::before {
+        content: "";
+        display: inline-block;
+        padding-bottom: 100%;
+    }
+
+    // empty style
+    &.empty {
+        border: 2px solid #d3d6da;
+    }
+
+    &.populated {
+        border: 2px solid #878a8c;
+    }
+}
+
+.keyboard {
+    font-family: "Libre Franklin", sans-serif;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.keyboard .row {
+    margin: auto;
+}
+
+.keyboard .key {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 58px;
+    width: 43px;
+    margin: 6px;
+    border-radius: 4px;
+
+    text-transform: uppercase;
+    font-size: 1.25em;
+    font-weight: bold;
+    line-height: 1.15;
+
+    background-color: #d3d6da;
+
+    cursor: pointer;
 }
