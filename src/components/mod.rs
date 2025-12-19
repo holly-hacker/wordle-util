@@ -16,6 +16,26 @@ pub fn App() -> impl IntoView {
     provide_context(letters);
     provide_context(set_letters);
 
+    let onkeypress = window_event_listener(leptos::ev::keydown, move |ev| {
+        let key = ev.key();
+
+        if key == "Backspace" || key == "Delete" {
+            set_letters.write().remove_last_letter();
+            ev.prevent_default();
+            return;
+        }
+
+        let mut chars = key.chars();
+        if let (Some(char), None) = (chars.next(), chars.next())
+            && char.to_ascii_lowercase().is_ascii_lowercase()
+        {
+            ev.prevent_default();
+            set_letters.write().push_letter(char);
+        }
+    });
+
+    on_cleanup(move || onkeypress.remove());
+
     view! {
         <div class="container">
             <Introduction />

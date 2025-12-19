@@ -28,6 +28,18 @@ impl EnteredLetters {
 
         let index = row_idx * 5 + tile_idx;
 
+        self.remove_letter_inner(index)
+    }
+
+    pub fn remove_last_letter(&mut self) {
+        let index = self.0.iter().rposition(|p| p.is_some());
+
+        if let Some(index) = index {
+            self.remove_letter_inner(index);
+        }
+    }
+
+    fn remove_letter_inner(&mut self, index: usize) {
         let existing = self.0[index];
         if let Some(existing) = existing {
             info!("Removing letter {existing:?} at index {index}");
