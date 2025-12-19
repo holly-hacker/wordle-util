@@ -6,12 +6,9 @@ use super::Row;
 pub fn Board() -> impl IntoView {
     view! {
         <div class="board">
-            <Row />
-            <Row />
-            <Row />
-            <Row />
-            <Row />
-            <Row />
+            <For each=|| 0..6 key=|i| *i let(row_idx)>
+                <Row row_index=row_idx />
+            </For>
         </div>
     }
 }
