@@ -4,4 +4,13 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+console_error_panic_hook = "0.1.7"
+console_log = { version = "1.0.0", features = ["color"] }
 leptos = { version = "0.8.14", features = ["csr"] }
+log = { version = "0.4.29", features = ["std"] }
+
+[profile.release]
+opt-level = 'z'
+lto = true
+codegen-units = 1
+panic = "abort"
