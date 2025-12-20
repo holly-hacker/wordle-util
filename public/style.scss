@@ -28,7 +28,27 @@ html {
 .board .row {
     display: grid;
     grid-gap: 5px;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: 0 repeat(5, 1fr) 0;
+
+    .annotation {
+        overflow-x: visible;
+        text-wrap: nowrap;
+
+        display: flex;
+        align-items: center;
+
+        // ensure left side goes to the left
+        &.left {
+            direction: rtl;
+        }
+        &.left .inner {
+            direction: lrt;
+        }
+
+        .inner {
+            padding: 1rem;
+        }
+    }
 }
 
 .board .tile {

@@ -2,6 +2,7 @@
 
 mod components;
 mod letters;
+mod solver;
 
 use leptos::prelude::*;
 use log::Level;

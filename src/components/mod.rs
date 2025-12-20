@@ -5,6 +5,7 @@ use leptos::prelude::*;
 
 use board::Board;
 use keyboard::Keyboard;
+use log::debug;
 
 use crate::letters::EnteredLetters;
 
@@ -15,6 +16,14 @@ pub fn App() -> impl IntoView {
 
     provide_context(letters);
     provide_context(set_letters);
+
+    let valid_word_count = Memo::new(move |_| {
+        let letters = letters.read();
+        let valid_words = crate::solver::get_valid_words(&letters);
+        debug!("Calculated valid word results: {valid_words:?}");
+        valid_words
+    });
+    provide_context(valid_word_count);
 
     let onkeypress = window_event_listener(leptos::ev::keydown, move |ev| {
         let key = ev.key();
