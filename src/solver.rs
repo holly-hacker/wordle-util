@@ -49,9 +49,6 @@ enum WordleRule {
         value: u8,
         index: usize,
     },
-    LetterNotPresent {
-        value: u8,
-    },
     LetterNotInPosition {
         value: u8,
         index: usize,
@@ -67,7 +64,6 @@ impl WordleRule {
         match *self {
             WordleRule::LetterInPosition { value, index } => target[index] == value,
             WordleRule::LetterNotInPosition { value, index } => target[index] != value,
-            WordleRule::LetterNotPresent { value } => !target.contains(&value),
             WordleRule::LetterCount { value, range } => {
                 range.contains(&target.iter().filter(|&&x| x == value).count())
             }
@@ -84,8 +80,23 @@ impl WordleRule {
             }
 
             if letter.state == LetterState::Incorrect {
-                rules.insert(WordleRule::LetterNotPresent {
+                rules.insert(WordleRule::LetterNotInPosition {
                     value: letter.value as u8,
+                    index: idx,
+                });
+
+                // the letter is used too many times (including more than 0 times)
+                let positive_occurence_count = row
+                    .iter()
+                    .filter(|l| l.value == letter.value && l.state != LetterState::Incorrect)
+                    .count();
+
+                rules.insert(WordleRule::LetterCount {
+                    value: letter.value as u8,
+                    range: (
+                        Bound::Included(positive_occurence_count),
+                        Bound::Included(positive_occurence_count),
+                    ),
                 });
             }
 

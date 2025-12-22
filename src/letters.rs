@@ -125,7 +125,7 @@ impl Letter {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum LetterState {
-    /// The letter is not used in the solution
+    /// The letter is not used in the solution or is used too many times
     Incorrect,
     /// The letter is used in the solution, but not in this spot
     Present,
