@@ -149,3 +149,37 @@ html {
         color: white;
     }
 }
+
+.settings {
+    margin-top: 3rem;
+
+    display: flex;
+    flex-direction: column;
+
+    h3 {
+        text-align: center;
+    }
+
+    ul {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    ul > li {
+        display: block;
+    }
+
+    button {
+        background-color: #d3d6da;
+        border: none;
+        border-radius: 3px;
+        font-size: 1.25rem;
+        font-weight: bold;
+        padding: 1rem;
+
+        &.active {
+            background-color: #6aaa64;
+            color: white;
+        }
+    }
+}

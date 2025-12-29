@@ -1,21 +1,30 @@
 mod board;
 mod keyboard;
-
-use leptos::prelude::*;
+mod settings;
 
 use board::Board;
 use keyboard::Keyboard;
+use leptos::prelude::*;
 use log::debug;
+use settings::SettingsComponent;
 
 use crate::letters::EnteredLetters;
+
+#[derive(Clone, Default)]
+pub struct Settings {
+    pub show_top_words: usize,
+}
 
 #[component]
 pub fn App() -> impl IntoView {
     // signal for content
     let (letters, set_letters) = signal(EnteredLetters::default());
+    let (settings, set_settings) = signal(Settings::default());
 
     provide_context(letters);
     provide_context(set_letters);
+    provide_context(settings);
+    provide_context(set_settings);
 
     let valid_word_count = Memo::new(move |_| {
         let letters = letters.read();
@@ -50,6 +59,7 @@ pub fn App() -> impl IntoView {
             <Introduction />
             <Board />
             <Keyboard />
+            <SettingsComponent />
         </div>
     }
 }

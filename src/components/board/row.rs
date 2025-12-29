@@ -1,12 +1,13 @@
 use leptos::prelude::*;
 
-use crate::solver::PossibleSolutions;
+use crate::{components::Settings, solver::PossibleSolutions};
 
 use super::Tile;
 
 #[component]
 pub fn Row(row_index: usize) -> impl IntoView {
     let solution = use_context::<Memo<PossibleSolutions>>().unwrap();
+    let settings = use_context::<ReadSignal<Settings>>().unwrap();
     let list = move || solution.read()[row_index].clone();
 
     view! {
@@ -24,7 +25,8 @@ pub fn Row(row_index: usize) -> impl IntoView {
                     <ShowLet some=list let:value>
                         {format!("Count: {}", value.get_count())}
                         <ShowLet some=move || value.get_words() let(words)>
-                            {(!words.is_empty()).then(|| format!(" ({})", words.join(", ")))}
+                            {(!words.is_empty() && words.len() <= settings.get().show_top_words)
+                                .then(|| format!(" ({})", words.join(", ")))}
                         </ShowLet>
                     </ShowLet>
                 </div>

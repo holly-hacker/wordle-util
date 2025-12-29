@@ -8,6 +8,7 @@ use log::debug;
 
 use crate::letters::{EnteredLetters, Letter, LetterState};
 
+// NOTE: could be stored more efficiently (at 3 bytes per word rather than 6). space is not actually significant.
 static VALID_WORDS_STRING: &str = include_str!("../data/valid-wordle-words.txt");
 static VALID_WORDS: LazyLock<Vec<[u8; 5]>> = LazyLock::new(read_words);
 
