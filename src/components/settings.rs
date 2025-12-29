@@ -11,7 +11,7 @@ pub fn SettingsComponent() -> impl IntoView {
 
     view! {
         <div class="settings">
-            <h3 class="title">"Spoil words at"</h3>
+            <h3 class="title">"Show possible words if only X remain:"</h3>
             <ul>
                 <For each=|| SPOIL_THRESHOLDS key=|i| *i let(num)>
                     <li>
